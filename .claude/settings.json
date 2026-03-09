@@ -1,0 +1,57 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Glass.aiff 2>/dev/null || paplay /usr/share/sounds/freedesktop/stereo/complete.oga 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && git diff --stat HEAD 2>/dev/null | tail -5 || true"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "deploy|docker|kubernetes|k8s|helm|terraform|ansible",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '<system-reminder>Recuerda leer skills/deploy/SKILL.md antes de ejecutar comandos de despliegue. Confirma siempre con el usuario antes de acciones destructivas o que afecten entornos compartidos.</system-reminder>'"
+          }
+        ]
+      },
+      {
+        "matcher": "git push|force push|reset --hard|drop table|delete from|rm -rf",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '<system-reminder>ACCIÓN POTENCIALMENTE DESTRUCTIVA detectada en el prompt. Confirma explícitamente con el usuario antes de ejecutar. Describe el impacto y ofrece alternativas reversibles si existen.</system-reminder>'"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '<system-reminder>Antes de ejecutar comandos bash: verifica que no escribes en directorios protegidos (.git internals, /etc, /usr), no expones credenciales en logs, y que el comando es reversible o ha sido confirmado por el usuario.</system-reminder>'"
+          }
+        ]
+      }
+    ]
+  }
+}
