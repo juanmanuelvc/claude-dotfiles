@@ -24,6 +24,8 @@
 ## Commits
 - Follow Conventional Commits: `type(scope): imperative description`
 - Common types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`
+- **One-liner only** — no multi-line body unless explicitly requested.
+- **No `Co-Authored-By` trailer** — ever.
 - Stage specific files — never `git add -A` blindly.
 - Review `git diff --staged` before committing.
 
