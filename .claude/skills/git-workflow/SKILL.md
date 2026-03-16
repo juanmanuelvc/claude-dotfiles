@@ -42,7 +42,7 @@ Rules:
    ```
 2. Naming: `type/short-description` — e.g. `feat/user-auth`, `fix/cart-dupe`
 3. One logical change per PR.
-4. Squash-merge to main; delete the branch after merge.
+4. Merge via PR only — never merge locally to main. Use the "Squash and merge" strategy on GitHub; delete the branch after merge.
 
 ## Before Every Commit
 
