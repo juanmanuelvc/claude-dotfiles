@@ -12,17 +12,25 @@ claude-dotfiles/
 │   │   ├── handoff.md                 # /handoff — session summary before /clear
 │   │   ├── bootstrap-repo.md          # /bootstrap-repo — generate onboarding docs
 │   │   ├── new-project.md             # /new-project — scaffold a greenfield project
+│   │   ├── sync-claude-md.md          # /sync-claude-md — merge template updates into a project
 │   │   └── review.md                  # /review — review current diff for bugs
 │   ├── settings.json                  # Hooks: Stop, PostToolUse, PreToolUse, UserPromptSubmit
 │   └── skills/                        # On-demand skill files (loaded by hooks)
 │       ├── git-workflow/SKILL.md      # Branch flow, commits, PRs, conflict resolution
-│       └── context-mgmt/SKILL.md     # When/how to compact, hand off, delegate
+│       ├── context-mgmt/SKILL.md     # When/how to compact, hand off, delegate
+│       ├── tdd/SKILL.md               # Red-Green-Refactor cycle and testing rules
+│       ├── open-pr/SKILL.md           # Consistent, confirmation-gated PR creation
+│       └── versioning/SKILL.md        # Semver, git-cliff changelog automation
 ├── templates/
 │   └── CLAUDE.md                      # Starter template — copy into new projects
 ├── scripts/
 │   └── install.sh                     # One-time setup: symlinks .claude/* into ~/.claude/
 └── scratchpad/                        # Handoff files written by /handoff
 ```
+
+## Dependencies
+
+- [`git-cliff`](https://git-cliff.org) — changelog generation (`brew install git-cliff`)
 
 ## Setup (once)
 
