@@ -11,6 +11,7 @@ claude-dotfiles/
 │   ├── commands/                      # Custom slash commands
 │   │   ├── handoff.md                 # /handoff — session summary before /clear
 │   │   ├── bootstrap-repo.md          # /bootstrap-repo — generate onboarding docs
+│   │   ├── new-project.md             # /new-project — scaffold a greenfield project
 │   │   └── review.md                  # /review — review current diff for bugs
 │   ├── settings.json                  # Hooks: Stop, PostToolUse, PreToolUse, UserPromptSubmit
 │   └── skills/                        # On-demand skill files (loaded by hooks)
