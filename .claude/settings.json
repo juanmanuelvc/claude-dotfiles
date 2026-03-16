@@ -42,6 +42,15 @@
         ]
       },
       {
+        "matcher": "test|spec|TDD|red.green|failing test|unit test|coverage",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '<system-reminder>Read ~/.claude/skills/tdd/SKILL.md before writing or modifying tests.</system-reminder>'"
+          }
+        ]
+      },
+      {
         "matcher": "context|compact|clear|handoff|60%",
         "hooks": [
           {
