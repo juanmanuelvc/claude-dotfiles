@@ -25,7 +25,9 @@ description: Follow this skill when the user explicitly asks to open, create, or
    git push origin <branch>
    ```
 
-4. **Open the PR** with `gh pr create`:
+4. **Show the user** the proposed title and body, and ask for explicit confirmation before proceeding. Do not open the PR until the user approves.
+
+5. **Open the PR** with `gh pr create` only after confirmation:
    - `--title`: the title derived in step 2
    - `--body`: structured body with the sections below
 
