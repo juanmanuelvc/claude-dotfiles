@@ -15,6 +15,9 @@ Once you have all answers:
 1. **Recommend a stack** if the user deferred to you — explain the choice in one sentence.
 2. **Scaffold the initial structure**: create the minimal directory layout and config files for the chosen stack (e.g. `package.json`, `pyproject.toml`, `.gitignore`, `src/`, `tests/`). Do not generate placeholder source files beyond what the toolchain requires.
 3. **Write `CLAUDE.md`** at the project root using `~/.claude/templates/CLAUDE.md` as the base, filling in the stack, package manager, and any project-specific conventions discovered during scaffolding. Remove placeholder comments.
-4. **Initialise git**: run `git init`, stage everything, and create the first commit with message `chore: initial project scaffold`.
+4. **Check `CLAUDE.md` length**: count its lines.
+   - If ≤ 200 lines: proceed.
+   - If > 200 lines: analyse the file to identify sections that are deep domain knowledge (framework conventions, testing patterns, deployment specifics, etc.) rather than core agent behaviour rules. For each identified section, create a skill file at `.claude/skills/<topic>/SKILL.md`, add a reference to it in the `## Available Skills` section of `CLAUDE.md`, and remove the extracted content from `CLAUDE.md`. Repeat until the file is under 200 lines.
+5. **Initialise git**: run `git init`, stage everything, and create the first commit with message `chore: initial project scaffold`.
 
 After finishing, print a one-paragraph summary of what was created and the suggested first next step.
