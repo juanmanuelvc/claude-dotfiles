@@ -1,8 +1,8 @@
-# Global Instructions
+# Project Instructions
 
 ## Project Identity
-- Main stack: adapt per project (TypeScript / Python / etc.)
-- Package manager: adapt per project (pnpm / uv / npm / pip)
+- Main stack: <!-- e.g. TypeScript, Python -->
+- Package manager: <!-- e.g. pnpm, uv, npm, pip -->
 - Branch convention: `feat/`, `fix/`, `chore/`, `docs/`
 
 ## Code Style
@@ -38,5 +38,5 @@
 
 ## Available Skills
 <!-- Load on demand — only costs tokens when activated -->
-- `.claude/skills/git-workflow/SKILL.md`   — branch flow, semantic commits, PRs, conflicts
-- `.claude/skills/context-mgmt/SKILL.md`   — when and how to compact / hand off context
+- `~/.claude/skills/git-workflow/SKILL.md`   — branch flow, semantic commits, PRs, conflicts
+- `~/.claude/skills/context-mgmt/SKILL.md`   — when and how to compact / hand off context
