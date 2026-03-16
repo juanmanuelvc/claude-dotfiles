@@ -6,34 +6,47 @@ Reusable Claude Code configuration files shared across all personal projects.
 
 ```
 claude-dotfiles/
-├── CLAUDE.md                          # Global agent instructions (injected every message)
+├── CLAUDE.md                          # This repo's own agent instructions
 ├── .claude/
 │   ├── commands/                      # Custom slash commands
 │   │   ├── handoff.md                 # /handoff — session summary before /clear
 │   │   ├── bootstrap-repo.md          # /bootstrap-repo — generate onboarding docs
 │   │   └── review.md                  # /review — review current diff for bugs
-│   ├── agents/                        # Custom sub-agents (add .md files here)
-│   └── settings.json                  # Hooks: Stop, PostToolUse, PreToolUse, UserPromptSubmit
-├── skills/
-│   ├── git-workflow/SKILL.md          # Branch flow, commits, PRs, conflict resolution
-│   └── context-mgmt/SKILL.md         # When/how to compact, hand off, delegate
+│   ├── settings.json                  # Hooks: Stop, PostToolUse, PreToolUse, UserPromptSubmit
+│   └── skills/                        # On-demand skill files (loaded by hooks)
+│       ├── git-workflow/SKILL.md      # Branch flow, commits, PRs, conflict resolution
+│       └── context-mgmt/SKILL.md     # When/how to compact, hand off, delegate
+├── templates/
+│   └── CLAUDE.md                      # Starter template — copy into new projects
+├── scripts/
+│   └── install.sh                     # One-time setup: symlinks .claude/* into ~/.claude/
 └── scratchpad/                        # Handoff files written by /handoff
 ```
 
-## Usage
-
-Symlink or copy this repo's files into your home directory so Claude Code picks them up globally:
+## Setup (once)
 
 ```bash
-# Global CLAUDE.md (Claude Code reads ~/.claude/CLAUDE.md automatically)
-ln -sf ~/claude-dotfiles/CLAUDE.md ~/.claude/CLAUDE.md
-
-# Commands and settings
-ln -sf ~/claude-dotfiles/.claude/commands ~/.claude/commands
-ln -sf ~/claude-dotfiles/.claude/settings.json ~/.claude/settings.json
+bash scripts/install.sh
 ```
 
-Or reference individual files from a project's own `CLAUDE.md`.
+This symlinks `.claude/commands`, `.claude/settings.json`, and `.claude/skills` into `~/.claude/`,
+making commands, hooks, and skills available globally in every project.
+
+## Per-project setup
+
+```bash
+cp templates/CLAUDE.md /path/to/my-project/CLAUDE.md
+# then edit the stack/package manager fields at the top
+```
+
+## Staying up-to-date
+
+```bash
+cd ~/workspace/claude-dotfiles
+git pull
+```
+
+Because everything is symlinked, pulling here immediately updates all projects — no re-running the install script needed.
 
 ## Based on
 

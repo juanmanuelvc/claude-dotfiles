@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '<system-reminder>Read skills/git-workflow/SKILL.md before performing any git operations.</system-reminder>'"
+            "command": "echo '<system-reminder>Read ~/.claude/skills/git-workflow/SKILL.md before performing any git operations.</system-reminder>'"
           }
         ]
       },
@@ -37,7 +37,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '<system-reminder>Read skills/deploy/SKILL.md before running any deployment commands.</system-reminder>'"
+            "command": "echo '<system-reminder>Read ~/.claude/skills/deploy/SKILL.md before running any deployment commands.</system-reminder>'"
           }
         ]
       },
@@ -46,7 +46,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo '<system-reminder>Read skills/context-mgmt/SKILL.md for guidance on managing context effectively.</system-reminder>'"
+            "command": "echo '<system-reminder>Read ~/.claude/skills/context-mgmt/SKILL.md for guidance on managing context effectively.</system-reminder>'"
           }
         ]
       }
