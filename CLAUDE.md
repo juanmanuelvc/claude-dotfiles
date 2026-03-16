@@ -42,3 +42,4 @@
 <!-- Load on demand — only costs tokens when activated -->
 - `.claude/skills/git-workflow/SKILL.md`   — branch flow, semantic commits, PRs, conflicts
 - `.claude/skills/context-mgmt/SKILL.md`   — when and how to compact / hand off context
+- `.claude/skills/tdd/SKILL.md`            — Red-Green-Refactor cycle and testing rules
