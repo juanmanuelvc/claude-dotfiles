@@ -39,7 +39,12 @@
 - Prefer structured logs with enough context to diagnose failures.
 
 ## Available Skills
-<!-- Load on demand — only costs tokens when activated -->
-- `.claude/skills/git-workflow/SKILL.md`   — branch flow, semantic commits, PRs, conflicts
-- `.claude/skills/context-mgmt/SKILL.md`   — when and how to compact / hand off context
-- `.claude/skills/tdd/SKILL.md`            — Red-Green-Refactor cycle and testing rules
+<!-- Scan this list at the start of any non-trivial task and load relevant skills before acting. -->
+
+| Skill | When to load |
+|---|---|
+| `.claude/skills/git-workflow/SKILL.md` | Any git operation: branch, commit, PR, merge, rebase, conflict |
+| `.claude/skills/context-mgmt/SKILL.md` | Context bar ~60%, before `/compact` or `/clear`, delegating to sub-agents |
+| `.claude/skills/tdd/SKILL.md` | Writing new logic, fixing bugs, adding or modifying tests |
+| `.claude/skills/open-pr/SKILL.md` | Only when the user explicitly asks to open a PR — never proactively |
+| `.claude/skills/versioning/SKILL.md` | Bumping versions, generating changelogs, tagging releases |
