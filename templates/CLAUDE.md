@@ -5,6 +5,9 @@
 - Package manager: <!-- e.g. pnpm, uv, npm, pip -->
 - Branch convention: `feat/`, `fix/`, `chore/`, `docs/`
 
+<!-- If stack is not yet defined, run /new-project to scaffold the project interactively.
+     Do not assume a stack — ask the user before creating any files. -->
+
 ## Code Style
 - Prefer explicit code over cleverness.
 - Always add types/annotations when the language supports it.
