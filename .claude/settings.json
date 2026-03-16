@@ -42,6 +42,15 @@
         ]
       },
       {
+        "matcher": "version|semver|changelog|release|tag|bump",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '<system-reminder>Read ~/.claude/skills/versioning/SKILL.md before bumping versions or generating changelogs.</system-reminder>'"
+          }
+        ]
+      },
+      {
         "matcher": "test|spec|TDD|red.green|failing test|unit test|coverage",
         "hooks": [
           {
