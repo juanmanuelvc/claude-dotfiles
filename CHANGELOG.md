@@ -9,6 +9,19 @@ Changelog is generated with [git-cliff](https://git-cliff.org) from conventional
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-03-19
+
+### Added
+- `/commit` command — source of truth for commit conventions and staging/review workflow
+- `/pr-preview` command — full pre-PR pipeline: review, simplify, quality gates, commit, open PR
+- `quality-gates` skill — runs project's test/lint/type-check commands defined in CLAUDE.md
+- Project quality gate in CLAUDE.md: enforce template version bump when `templates/CLAUDE.md` changes
+
+### Changed
+- `git-workflow` skill: adopted trunk-based development model (no persistent integration branch); branch naming updated to `type/scope/slug`; commit conventions and workflow delegated to `/commit`
+- `templates/CLAUDE.md`: added `/pr-preview` reminder to Agent Behaviour; added `commit` and `quality-gates` entries to skills table
+- `CLAUDE.md`: same updates as template
+
 ## [0.1.0] - 2026-03-16
 
 ### Added
