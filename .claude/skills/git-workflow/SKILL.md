@@ -1,59 +1,33 @@
 ---
 name: git-workflow
-description: Use this skill for git operations: creating branches, writing semantic commits, opening PRs, resolving conflicts, rebasing, or any git workflow task.
+description: Use this skill for git operations: creating branches, opening PRs, merging, rebasing, or resolving conflicts. For commit conventions, use /commit.
 ---
 
 # Git Workflow
 
-## Commit Convention (Conventional Commits)
+## Commits
 
-Format: `type(optional-scope): imperative description`
+For commit conventions and the full staging/review/commit workflow, run `/commit`.
+The `/commit` command is the source of truth for commit format and rules.
 
-| Type       | When to use                                  |
-|------------|----------------------------------------------|
-| `feat`     | New user-visible feature                     |
-| `fix`      | Bug fix                                      |
-| `chore`    | Maintenance: deps, configs, tooling          |
-| `docs`     | Documentation only                           |
-| `refactor` | Code change with no behaviour change         |
-| `test`     | Add or update tests                          |
-| `perf`     | Performance improvement                      |
-| `ci`       | CI/CD pipeline changes                       |
+## Branch Flow (Trunk-Based Development)
 
-Examples:
-```
-feat(auth): add OAuth2 login support
-fix(cart): prevent duplicate item entries
-chore(deps): upgrade vitest to v2
-```
-
-Rules:
-- Imperative mood: "add", not "added" or "adds".
-- Max 72 chars for the subject line.
-- Add a body paragraph when the *why* is non-obvious.
-- Never commit secrets, `.env` files, or large binaries.
-
-## Branch Flow
+`main` is the trunk — always releasable. There are no persistent integration branches.
+All work happens on short-lived branches cut directly from `main` and merged back via PR.
 
 1. Always branch from an up-to-date `main` (or `master`):
    ```bash
    git checkout main && git pull origin main
-   git checkout -b type/short-description
+   git checkout -b type/scope/slug
    ```
-2. Naming: `type/short-description` — e.g. `feat/user-auth`, `fix/cart-dupe`
+2. Naming: `type/scope/slug` — e.g. `feat/auth/oauth-login`, `fix/cart/dupe-items`
+   Scope is optional: `feat/oauth-login` is fine when scope is obvious.
 3. One logical change per PR.
-4. Merge via PR only — never merge locally to main. Use the "Squash and merge" strategy on GitHub; delete the branch after merge.
+4. Merge via PR only — never merge locally to main. Use the "Squash and merge" strategy on GitHub; delete the branch immediately after merge.
 
 ## Before Every Commit
 
-```bash
-git diff --staged          # review exactly what will be committed
-# run tests
-git commit -m "type(scope): description"
-```
-
-Never use `git add -A` blindly — stage specific files.
-Never use `--no-verify` unless the user explicitly requests it.
+Run `/commit` for the full workflow. For quality checks before a PR, run `/pr-preview`.
 
 ## Pull Requests
 
