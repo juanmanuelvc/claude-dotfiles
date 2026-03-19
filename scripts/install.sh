@@ -23,6 +23,7 @@ link() {
 link "$DOTFILES_DIR/.claude/commands"     "$CLAUDE_DIR/commands"
 link "$DOTFILES_DIR/.claude/settings.json" "$CLAUDE_DIR/settings.json"
 link "$DOTFILES_DIR/.claude/skills"       "$CLAUDE_DIR/skills"
+link "$DOTFILES_DIR/templates"            "$CLAUDE_DIR/templates"
 
 echo ""
 echo "Done. To add a CLAUDE.md to a project:"
