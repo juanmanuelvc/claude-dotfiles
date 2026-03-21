@@ -30,7 +30,7 @@ claude-dotfiles/
 
 ## Dependencies
 
-- [`git-cliff`](https://git-cliff.org) — changelog generation (`brew install git-cliff`)
+- [`git-cliff`](https://git-cliff.org) — changelog generation. See the [installation docs](https://git-cliff.org/docs/installation) for your OS.
 
 ## Setup (once)
 
@@ -43,10 +43,14 @@ making commands, hooks, and skills available globally in every project.
 
 ## Per-project setup
 
-```bash
-cp templates/CLAUDE.md /path/to/my-project/CLAUDE.md
-# then edit the stack/package manager fields at the top
+Open a project in Claude Code and run:
+
 ```
+/sync-claude-md
+```
+
+If no `CLAUDE.md` exists yet, the skill will offer to initialize one from the template.
+If one already exists, it will merge any template updates while preserving project-specific content.
 
 ## Staying up-to-date
 
