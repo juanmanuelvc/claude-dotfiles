@@ -17,9 +17,10 @@ Once you have all answers:
 1. **Recommend a stack** if the user deferred to you — explain the choice in one sentence.
 2. **Scaffold the initial structure**: create the minimal directory layout and config files for the chosen stack (e.g. `package.json`, `pyproject.toml`, `.gitignore`, `src/`, `tests/`). Do not generate placeholder source files beyond what the toolchain requires.
 3. **Set up versioning and changelog** based on the CI/CD answer:
-   - **CI/CD on GitHub**: create `.github/workflows/release-please.yml` using the appropriate `release-type` for the stack. No local tooling needed.
-   - **No CI/CD**: note in the project README that `git-cliff` is used for changelog generation (https://git-cliff.org/docs/installation) and ask the user to install it before cutting a release.
+   - **CI/CD on GitHub**: run `git cliff --init` to create `cliff.toml`, then copy `~/.claude/templates/changelog.yml` to `.github/workflows/changelog.yml`. This auto-generates `CHANGELOG.md` whenever a version tag is pushed.
+   - **No CI/CD**: run `git cliff --init` to create `cliff.toml`. Note in the project README that releases are cut manually: preview with `git cliff --unreleased`, generate with `git cliff --tag vX.Y.Z -o CHANGELOG.md`, then commit and tag.
    - **No versioning wanted**: skip this step.
+   - **Publishing artifacts** (npm, pip, Docker): use `release-please` instead — see the versioning skill for setup.
 4. **Write `CLAUDE.md`** at the project root using `~/.claude/templates/CLAUDE.md` as the base, filling in the stack, package manager, and any project-specific conventions discovered during scaffolding. Remove placeholder comments.
 5. **Check `CLAUDE.md` length**: count its lines.
    - If ≤ 200 lines: proceed.

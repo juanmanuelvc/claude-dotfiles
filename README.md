@@ -52,6 +52,29 @@ Open a project in Claude Code and run:
 If no `CLAUDE.md` exists yet, the skill will offer to initialize one from the template.
 If one already exists, it will merge any template updates while preserving project-specific content.
 
+## Versioning new projects
+
+When `/new-project` scaffolds a project, it sets up `git-cliff` for changelog generation by default:
+
+- Runs `git cliff --init` to create `cliff.toml`
+- If the project is on GitHub, copies `.github/workflows/changelog.yml` from the templates — `CHANGELOG.md` is regenerated automatically whenever a version tag is pushed
+
+**Release workflow:**
+```bash
+git cliff --unreleased        # preview what's going in
+git tag v1.2.0
+git push origin main v1.2.0  # CI generates CHANGELOG.md automatically
+```
+
+Without CI, generate manually before tagging:
+```bash
+git cliff --tag v1.2.0 -o CHANGELOG.md
+git add CHANGELOG.md && git commit -m "chore: release v1.2.0"
+git tag v1.2.0 && git push origin main v1.2.0
+```
+
+For projects that publish artifacts (npm, pip, Docker), use `release-please` instead — see the versioning skill.
+
 ## Staying up-to-date
 
 ```bash
