@@ -30,14 +30,53 @@ Look at all commits since the last tag:
 
 | Situation | Recommended tool |
 |---|---|
-| GitHub-hosted project with CI/CD | `release-please` (GitHub Action) |
-| Personal repo, simple project, or no CI/CD | `git-cliff` (local CLI) |
+| Default — personal projects, no published artifacts | `git-cliff` + GitHub Action |
+| Projects that publish artifacts (npm, pip, Docker) | `release-please` |
 
 ---
 
-## Option A — release-please (GitHub Action)
+## Option A — git-cliff (default)
 
-Best for projects that merge frequently and publish artifacts (packages, Docker images, APIs).
+Best for personal projects and repos that don't publish artifacts.
+
+**Requires:** `git-cliff` installed. See https://git-cliff.org/docs/installation for instructions.
+
+### With GitHub Actions CI (recommended)
+
+`cliff.toml` + `.github/workflows/changelog.yml` are scaffolded by `/new-project`. When you push a tag, the action regenerates `CHANGELOG.md` and commits it back automatically.
+
+**Release workflow:**
+```bash
+# 1. Preview what will go in the changelog
+git cliff --unreleased
+
+# 2. Tag and push — CI handles CHANGELOG.md automatically
+git tag v1.2.0
+git push origin main v1.2.0
+```
+
+### Without CI
+
+**Release workflow:**
+```bash
+# 1. Preview what will go in the changelog
+git cliff --unreleased
+
+# 2. Generate/update CHANGELOG.md and decide the tag
+git cliff --tag v1.2.0 -o CHANGELOG.md
+
+# 3. Commit and tag
+git add CHANGELOG.md
+git commit -m "chore: release v1.2.0"
+git tag v1.2.0
+git push origin main v1.2.0
+```
+
+---
+
+## Option B — release-please (GitHub Action)
+
+Use only for projects that publish artifacts (packages, Docker images, APIs) and want a fully automated release pipeline.
 
 **How it works:**
 1. On every merge to `main`, the action creates or updates a "Release PR" that bumps the version and drafts the changelog.
@@ -62,36 +101,12 @@ jobs:
           release-type: node   # or: python, go, rust, simple …
 ```
 
-No local tools required. Everything happens in CI.
-
 ---
 
-## Option B — git-cliff (local CLI)
-
-Best for personal repos, infrequent releases, or projects without CI/CD.
-
-**Requires:** `git-cliff` installed — ask the user to install it if not available. See https://git-cliff.org/docs/installation for instructions.
-
-**Release workflow:**
-```bash
-# 1. Preview what will go in the changelog
-git cliff --unreleased
-
-# 2. Generate/update CHANGELOG.md and decide the tag
-git cliff --tag v1.2.0 -o CHANGELOG.md
-
-# 3. Commit and tag
-git add CHANGELOG.md
-git commit -m "chore: release v1.2.0"
-git tag v1.2.0
-git push origin main v1.2.0
-```
-
----
-
-## Rules (both tools)
+## Rules
 
 - Never skip a version number.
 - Tags are immutable — do not move or delete a published tag.
-- `CHANGELOG.md` is always committed in the same commit as the version bump, never separately.
+- Without CI: commit `CHANGELOG.md` in the same commit as the version bump.
+- With CI (git-cliff action): `CHANGELOG.md` is committed by the action after the tag — this is expected.
 - `0.0.x` versions are reserved for initial unstable work before the first real release.

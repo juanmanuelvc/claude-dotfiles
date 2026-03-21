@@ -1,4 +1,4 @@
-[//]: # (template-version: v0.2.0)
+[//]: # (template-version: v0.3.0)
 # Project Instructions
 
 ## Project Identity
@@ -54,4 +54,4 @@
 | `~/.claude/skills/context-mgmt/SKILL.md` | Context bar ~60%, before `/compact` or `/clear`, delegating to sub-agents |
 | `~/.claude/skills/tdd/SKILL.md` | Writing new logic, fixing bugs, adding or modifying tests |
 | `~/.claude/skills/open-pr/SKILL.md` | Only when the user explicitly asks to open a PR — never proactively |
-| `~/.claude/skills/versioning/SKILL.md` | Bumping versions, generating changelogs, tagging releases |
+| `~/.claude/skills/versioning/SKILL.md` | Bumping versions, generating changelogs with git-cliff, tagging releases |
