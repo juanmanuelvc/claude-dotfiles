@@ -9,6 +9,18 @@ Changelog is generated with [git-cliff](https://git-cliff.org) from conventional
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-03-21
+
+### Changed
+- `versioning` skill: git-cliff is now the default for all projects; release-please reserved for artifact-publishing projects
+- `new-project` command: scaffolds git-cliff (`cliff.toml` + changelog workflow) instead of release-please
+- `templates/CLAUDE.md`: versioning skill row updated to mention git-cliff
+
+### Added
+- `cliff.toml` — git-cliff configuration for this repo (default settings)
+- `.github/workflows/changelog.yml` — auto-regenerates CHANGELOG.md on version tag push
+- `templates/changelog.yml` — changelog workflow template for new projects
+
 ## [0.2.0] - 2026-03-19
 
 ### Added
