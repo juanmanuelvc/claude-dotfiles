@@ -1,0 +1,84 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Glass.aiff 2>/dev/null || paplay /usr/share/sounds/freedesktop/stereo/complete.oga 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && git diff --stat HEAD 2>/dev/null | tail -5 || true"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "git|branch|commit|merge|rebase|PR|pull request|conflict",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '<system-reminder>Read ~/.claude/skills/git-workflow/SKILL.md before performing any git operations.</system-reminder>'"
+          }
+        ]
+      },
+      {
+        "matcher": "deploy|docker|kubernetes|k8s|helm|release",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '<system-reminder>Read ~/.claude/skills/deploy/SKILL.md before running any deployment commands.</system-reminder>'"
+          }
+        ]
+      },
+      {
+        "matcher": "version|semver|changelog|release|tag|bump",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '<system-reminder>Read ~/.claude/skills/versioning/SKILL.md before bumping versions or generating changelogs.</system-reminder>'"
+          }
+        ]
+      },
+      {
+        "matcher": "test|spec|TDD|red.green|failing test|unit test|coverage",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '<system-reminder>Read ~/.claude/skills/tdd/SKILL.md before writing or modifying tests.</system-reminder>'"
+          }
+        ]
+      },
+      {
+        "matcher": "context|compact|clear|handoff|60%",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '<system-reminder>Read ~/.claude/skills/context-mgmt/SKILL.md for guidance on managing context effectively.</system-reminder>'"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[hook] bash: $CLAUDE_TOOL_INPUT\" >> \"$CLAUDE_PROJECT_DIR/.claude/bash-audit.log\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}
