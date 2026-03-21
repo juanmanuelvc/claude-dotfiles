@@ -13,8 +13,8 @@ mkdir -p "$CLAUDE_DIR"
 link() {
   local src="$1" dst="$2"
   if [[ -e "$dst" && ! -L "$dst" ]]; then
-    echo "  SKIP $dst (exists and is not a symlink — back it up manually)"
-    return
+    mv "$dst" "$dst.bak"
+    echo "  BACK $dst -> $dst.bak"
   fi
   ln -sf "$src" "$dst"
   echo "  LINK $dst -> $src"
