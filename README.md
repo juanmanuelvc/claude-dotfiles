@@ -84,6 +84,10 @@ git pull
 
 Because everything is symlinked, pulling here immediately updates all projects — no re-running the install script needed.
 
-## Based on
+## Disclaimer
 
-*"A Guide to Claude Code 2.0 and getting better at using coding agents"* — sankalp, Dec 2025
+Personal dotfiles shared as-is. No stability guarantees — structure and skills may change as my workflow evolves. Contributions and issues are welcome, but this is primarily built for my own use.
+
+## Acknowledgements
+
+Inspired by *"A Guide to Claude Code 2.0 and getting better at using coding agents"* by Sankalp Shubham (Dec 2025).
