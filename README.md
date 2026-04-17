@@ -90,4 +90,4 @@ Personal dotfiles shared as-is. No stability guarantees — structure and skills
 
 ## Acknowledgements
 
-Inspired by *"A Guide to Claude Code 2.0 and getting better at using coding agents"* by Sankalp Shubham (Dec 2025).
+Inspired by [*My experience with Claude Code 2.0 and how to get better at using coding agents*](https://sankalp.bearblog.dev/my-experience-with-claude-code-20-and-how-to-get-better-at-using-coding-agents/) by Sankalp Shubham (Dec 2025).
