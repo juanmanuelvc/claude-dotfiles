@@ -1,6 +1,6 @@
 # ADR-001: Worktree workflow for parallel agent execution
 
-**Status:** Proposed
+**Status:** Accepted
 **Date:** 2026-03-16
 
 ## Context
