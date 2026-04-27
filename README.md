@@ -23,10 +23,13 @@ claude-dotfiles/
 │       └── versioning/SKILL.md        # Semver, git-cliff changelog automation
 ├── templates/
 │   └── CLAUDE.md                      # Starter template — copy into new projects
-├── scripts/
-│   └── install.sh                     # One-time setup: symlinks .claude/* into ~/.claude/
-└── scratchpad/                        # Handoff files written by /handoff
+└── scripts/
+    └── install.sh                     # One-time setup: symlinks .claude/* into ~/.claude/
 ```
+
+> **Scratchpad**: `/handoff` writes session summaries to a shared private repo at
+> `../scratchpad/<project-name>/` (sibling to each project directory), keeping handoff
+> files synced across devices without polluting project history.
 
 ## Dependencies
 
