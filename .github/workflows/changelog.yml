@@ -21,9 +21,9 @@ jobs:
         uses: orhun/git-cliff-action@v4
         with:
           config: cliff.toml
-          args: --verbose
+          args: --verbose --unreleased
         env:
-          OUTPUT: CHANGELOG.md
+          PREPEND: CHANGELOG.md
           GITHUB_REPO: ${{ github.repository }}
 
       - name: Commit and push CHANGELOG.md

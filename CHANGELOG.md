@@ -5,9 +5,27 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 Changelog is generated with [git-cliff](https://git-cliff.org) from conventional commits.
 
-<!-- To generate/update: git cliff --tag vX.Y.Z -o CHANGELOG.md -->
+<!-- To generate/update: git cliff --tag vX.Y.Z --unreleased --prepend CHANGELOG.md -->
 
-## [Unreleased]
+## [0.4.0] - 2026-04-28
+
+### 🚀 Features
+
+- Set up git-cliff as default versioning tool with CI automation
+- Move scratchpad to shared sibling repo and bump template to v0.4.0 (#5)
+
+### 🐛 Bug Fixes
+
+- *(changelog)* Push to default branch to avoid detached HEAD failure
+
+### 📚 Documentation
+
+- Add attribution link for Sankalp's Claude Code article
+
+### ⚙️ Miscellaneous Tasks
+
+- Prep repo for public release
+- Prep repo for public release
 
 ## [0.3.0] - 2026-03-21
 
