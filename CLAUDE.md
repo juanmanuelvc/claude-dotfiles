@@ -40,7 +40,7 @@
 - Prefer structured logs with enough context to diagnose failures.
 
 ## Project Quality Gates
-- If `templates/CLAUDE.md` was modified, verify the `template-version` marker was bumped and `CHANGELOG.md` has a new entry.
+- If `templates/CLAUDE.md` was modified, verify the `template-version` marker was bumped — git-cliff generates the CHANGELOG entry automatically on the next release tag.
 
 ## Available Skills
 <!-- Scan this list at the start of any non-trivial task and load relevant skills before acting. -->

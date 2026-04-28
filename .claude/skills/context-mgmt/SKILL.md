@@ -19,7 +19,8 @@ description: Use this skill when context is filling up, when deciding whether to
 ## Handoff Before Compacting
 
 Always run `/handoff` before `/compact` or `/clear` on a long session.
-The handoff file is written to `scratchpad/handoff-<date>.md` and captures:
+The handoff file is written to `../scratchpad/<project-name>/handoff-<date>.md`
+(shared across devices; the directory is created automatically if it doesn't exist) and captures:
 - Session goal
 - Files changed and why
 - Current state (working / broken / partial)

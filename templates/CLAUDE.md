@@ -1,4 +1,4 @@
-[//]: # (template-version: v0.3.0)
+[//]: # (template-version: v0.4.0)
 # Project Instructions
 
 ## Project Identity
@@ -16,6 +16,8 @@
 - Use descriptive names; avoid abbreviations.
 - Minimum necessary complexity — three similar lines beats a premature abstraction.
 - No backwards-compatibility shims for code you are certain is unused; delete it.
+- Docstrings required on all public functions and classes — describe what it does, parameters, and return value.
+- No inline comments unless the *why* is non-obvious (hidden constraint, subtle invariant, workaround). Never describe what the code does or obvious contracts.
 
 ## Agent Behaviour
 - Ask before making large, destructive, or irreversible changes.

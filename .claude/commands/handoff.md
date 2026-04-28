@@ -2,8 +2,12 @@
 description: Generate a session summary before running /clear or /compact
 ---
 
-Before closing the context, create a file `scratchpad/handoff-<YYYY-MM-DD>.md`
-(use today's actual date) with the following sections:
+Before closing the context:
+
+- Determine the project name by running `basename $PWD`.
+- Run `mkdir -p ../scratchpad/<project-name>` to create the folder if it doesn't exist.
+- Create the file `../scratchpad/<project-name>/handoff-<YYYY-MM-DD>.md`
+  (use today's actual date) with the following sections:
 
 1. **Session goal** — what we were trying to achieve.
 2. **Changes made** — list of modified/created files with a one-line summary each.
