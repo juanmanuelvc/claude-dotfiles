@@ -30,6 +30,7 @@ claude-dotfiles/
 > **Scratchpad**: `/handoff` writes session summaries to a shared private repo at
 > `../scratchpad/<project-name>/` (sibling to each project directory), keeping handoff
 > files synced across devices without polluting project history.
+> Set it up once: `mkdir -p ../scratchpad && cd ../scratchpad && git init && gh repo create scratchpad --private --source=.`
 
 ## Dependencies
 
