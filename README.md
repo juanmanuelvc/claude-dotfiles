@@ -49,6 +49,10 @@ Installs:
 
 Pulling this repo updates all machines that re-run or already symlink here.
 
+If you previously installed the Claude Code layout, remove old symlinks under
+`~/.claude/skills`, `~/.claude/commands`, and `~/.claude/settings.json` so they
+do not shadow the portable install.
+
 ## Per-project
 
 ```text

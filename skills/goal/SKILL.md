@@ -47,8 +47,7 @@ Do not start implementing until **Objective**, **Done when**, and **Stop when** 
 
 ```bash
 git fetch origin
-git checkout main && git pull origin main   # only to update main locally if needed
-# Preferred: worktree
+# Preferred: worktree from origin/main — do not switch the primary checkout to main
 git worktree add -b goal/<slug> ../<project>-goal-<slug> origin/main
 cd ../<project>-goal-<slug>
 ```
