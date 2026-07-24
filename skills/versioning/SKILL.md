@@ -43,29 +43,20 @@ Best for personal projects and repos that don't publish artifacts.
 
 ### With GitHub Actions CI (recommended)
 
-`cliff.toml` + `.github/workflows/changelog.yml` are scaffolded by `/new-project`. When you push a tag, the action regenerates `CHANGELOG.md` and commits it back automatically.
+`cliff.toml` + `.github/workflows/changelog.yml` are scaffolded by the `new-project` prompt. When you push a tag, the action regenerates `CHANGELOG.md` and commits it back automatically.
 
 **Release workflow:**
 ```bash
-# 1. Preview what will go in the changelog
 git cliff --unreleased
-
-# 2. Tag and push — CI handles CHANGELOG.md automatically
 git tag v1.2.0
 git push origin main v1.2.0
 ```
 
 ### Without CI
 
-**Release workflow:**
 ```bash
-# 1. Preview what will go in the changelog
 git cliff --unreleased
-
-# 2. Generate/update CHANGELOG.md and decide the tag
 git cliff --tag v1.2.0 -o CHANGELOG.md
-
-# 3. Commit and tag
 git add CHANGELOG.md
 git commit -m "chore: release v1.2.0"
 git tag v1.2.0
@@ -76,11 +67,10 @@ git push origin main v1.2.0
 
 ## Option B — release-please (GitHub Action)
 
-Use only for projects that publish artifacts (packages, Docker images, APIs) and want a fully automated release pipeline.
+Use only for projects that publish artifacts and want a fully automated release pipeline.
 
-**How it works:**
-1. On every merge to `main`, the action creates or updates a "Release PR" that bumps the version and drafts the changelog.
-2. When you're ready to release, merge the Release PR — the action then creates the git tag and GitHub Release automatically.
+1. On every merge to `main`, the action creates or updates a Release PR.
+2. Merge the Release PR to cut the tag and GitHub Release.
 
 **Setup** — create `.github/workflows/release-please.yml`:
 ```yaml
