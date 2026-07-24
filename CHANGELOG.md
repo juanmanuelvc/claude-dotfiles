@@ -7,6 +7,34 @@ Changelog is generated with [git-cliff](https://git-cliff.org) from conventional
 
 <!-- To generate/update: git cliff --tag vX.Y.Z --unreleased --prepend CHANGELOG.md -->
 
+## [0.5.0] - 2026-07-24
+
+### Breaking
+
+- Replace Claude Code–centric layout with portable Agent Skills core (`skills/`, `prompts/`, `AGENTS.md`)
+- Install target is `~/.agents/` (+ Codex/Cursor adapters); `~/.claude/` is no longer installed
+- Rename project instructions template to `templates/AGENTS.md` (`template-version: v0.5.0`)
+- Remove always-on Claude hooks from the install path (legacy file under `adapters/claude/`)
+
+### Added
+
+- `goal` skill and prompt — autonomous plan→act→verify loop with per-goal branch/worktree and human PR gate
+- `session` skill — harness-neutral context/pause guidance (replaces Claude-specific `context-mgmt`)
+- Thin adapters docs for Cursor and Codex
+
+### Changed
+
+- `git-workflow` — protected `main`, worktrees, explicit ban on shared agent trunks
+- `quality-gates` — reads `AGENTS.md` (falls back to `CLAUDE.md`)
+- Prompts: `sync-agents-md`, `pr-preview` (no broken `/simplify`), `new-project`, `bootstrap-repo`, `commit`, `handoff`, `review`
+- ADR-001 adopted for single-goal worktree isolation
+- README rewritten for multi-harness use (future GitHub rename: `agent-skills`)
+
+### Removed
+
+- Requirement for `ultrathink`, `/compact`, `/clear` in agent instructions
+- Broken references to missing `deploy` skill and `/simplify`
+
 ## [0.4.0] - 2026-04-28
 
 ### 🚀 Features

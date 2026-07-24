@@ -24,7 +24,8 @@ Not adopted at this time. The practice is unfamiliar and introducing it without 
 experience risks writing a workflow that does not reflect real usage.
 
 TDD (`skills/tdd/SKILL.md`) is adopted instead as the baseline. It provides the
-Red-Green-Refactor discipline without requiring a preceding spec phase.
+Red-Green-Refactor discipline without requiring a preceding spec phase. Goal
+loops compose with TDD via done-when checks, not a formal SDD phase.
 
 ## Revisit when
 

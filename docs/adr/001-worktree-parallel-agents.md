@@ -1,58 +1,41 @@
-# ADR-001: Worktree workflow for parallel agent execution
+# ADR-001: Worktree isolation for goal execution
 
-**Status:** Accepted
-**Date:** 2026-03-16
+**Status:** Accepted (adopted for single-goal isolation)  
+**Date:** 2026-03-16  
+**Updated:** 2026-07-24
 
 ## Context
 
-Claude Code supports an `isolation: "worktree"` parameter on the Agent tool that creates a
-temporary git worktree for each spawned agent. This makes it possible to run multiple agents
-in parallel, each working on an independent branch without interfering with each other or with
-the main working tree.
+Long-running autonomous agent work (goal loops) must not disturb the user's
+primary checkout or allow silent pollution of `main`. Git worktrees give each
+goal its own working directory and branch while sharing one object store.
 
-We considered adding a dedicated skill (`worktrees/SKILL.md`) and a `/parallel-task` command
-to formalise this pattern across projects.
+Earlier drafts assumed a Claude Code–specific `isolation: "worktree"` Agent
+parameter. The portable approach is harness-agnostic: document the lifecycle in
+the `goal` and `git-workflow` skills and use plain `git worktree` commands.
 
-## Decision drivers
+## Decision
 
-- Parallel agent execution can significantly reduce wall-clock time on independent tasks.
-- Git worktrees share the object store, so there is no full repo duplication.
-- However, everything outside the object store (dependencies, build caches, compiled outputs)
-  is duplicated per worktree, which has non-trivial resource implications.
-- Token consumption scales linearly with the number of parallel agents:
-  `CLAUDE.md` and any loaded skills are injected into every agent's context on every message.
+1. **Default for multi-step goals:** create a worktree + short-lived branch from
+   `origin/main` (`goal/<slug>` or `type/scope/slug`).
+2. **Protected `main`:** agents never commit, push, merge, or rebase onto `main`.
+3. **No shared agent trunk:** no long-lived `develop` / `agent` playground branch.
+4. **Push freely** on the goal branch; **PR to `main`** only with explicit user
+   confirmation (`open-pr`); humans merge.
+5. **Parallel multi-agent orchestration** (many worktrees at once) remains
+   optional and out of scope for the base skills — guardrails below still apply
+   if you add it later.
 
-## Resource implications
+## Guardrails
 
-| Resource | Impact |
-|---|---|
-| Disk (source files) | Multiplied by N worktrees (shared git objects, not shared working tree) |
-| Disk (dependencies) | Multiplied by N — `node_modules`, `.venv`, build artifacts are not shared |
-| CPU / RAM | Proportional to concurrent builds, tests, or tool executions across agents |
-| Tokens (CLAUDE.md) | N × message count × CLAUDE.md size — makes the 200-line cap load-bearing |
-| Tokens (skills) | Each agent loads skills independently; no sharing between contexts |
-| Tokens (file reads) | No deduplication — two agents reading the same file each pay the full cost |
-
-## Guardrails (agreed)
-
-1. **Only parallelise tasks that touch different files.** Shared-file tasks produce merge
-   conflicts and negate the benefit of parallelism.
-2. **Max 2–3 concurrent agents** on a typical developer machine. Beyond that, resource
-   contention outweighs the time saving.
-3. **Avoid re-installing dependencies inside agents** when the worktree can reference a
-   pre-existing install (e.g. a read-only symlink to `node_modules`).
-4. **Keep CLAUDE.md ≤ 200 lines.** With N parallel agents, every extra line in CLAUDE.md
-   costs N times as many tokens per round-trip.
-5. **Clean up worktrees after merge.** Stale worktrees accumulate disk usage and confuse
-   `git worktree list`.
+1. Only parallelise tasks that touch different files.
+2. Max 2–3 concurrent agents on a typical machine.
+3. Avoid reinstalling dependencies per worktree when a shared cache/symlink works.
+4. Keep `AGENTS.md` ≤ ~200 lines (token cost scales with concurrent agents).
+5. Remove worktrees after merge.
 
 ## Consequences
 
-- A `worktrees/SKILL.md` skill will document the lifecycle (create → work → PR → remove)
-  and the guardrails above.
-- A `/parallel-task` command will provide a guided flow for decomposing a task into
-  independent sub-tasks and spawning agents in separate worktrees.
-- The `CLAUDE.md` 200-line limit (already enforced by `/new-project`) is elevated from a
-  style preference to a resource constraint, especially relevant when parallel agents are used.
-- Implementation is postponed until there is a concrete need for it in a real project.
-  The skill and command will not be created speculatively.
+- `skills/goal/SKILL.md` and `skills/git-workflow/SKILL.md` own the lifecycle.
+- A dedicated `/parallel-task` prompt is **not** required for v1.
+- GitHub branch protection on `main` is recommended per consumer repo.

@@ -1,97 +1,91 @@
-# claude-dotfiles
+# agent-skills (formerly claude-dotfiles)
 
-Reusable Claude Code configuration files shared across all personal projects.
+Portable **Agent Skills**, prompts, and `AGENTS.md` templates for coding agents
+(Cursor, Codex, Pi, and peers). Sync across devices with git + `scripts/install.sh`.
 
-## Structure
+> GitHub repo rename to `agent-skills` is planned; local directory may still be `claude-dotfiles`.
+
+## Layout
 
 ```
-claude-dotfiles/
-├── CLAUDE.md                          # This repo's own agent instructions
-├── .claude/
-│   ├── commands/                      # Custom slash commands
-│   │   ├── handoff.md                 # /handoff — session summary before /clear
-│   │   ├── bootstrap-repo.md          # /bootstrap-repo — generate onboarding docs
-│   │   ├── new-project.md             # /new-project — scaffold a greenfield project
-│   │   ├── sync-claude-md.md          # /sync-claude-md — merge template updates into a project
-│   │   └── review.md                  # /review — review current diff for bugs
-│   ├── settings.json                  # Hooks: Stop, PostToolUse, PreToolUse, UserPromptSubmit
-│   └── skills/                        # On-demand skill files (loaded by hooks)
-│       ├── git-workflow/SKILL.md      # Branch flow, commits, PRs, conflict resolution
-│       ├── context-mgmt/SKILL.md     # When/how to compact, hand off, delegate
-│       ├── tdd/SKILL.md               # Red-Green-Refactor cycle and testing rules
-│       ├── open-pr/SKILL.md           # Consistent, confirmation-gated PR creation
-│       └── versioning/SKILL.md        # Semver, git-cliff changelog automation
-├── templates/
-│   └── CLAUDE.md                      # Starter template — copy into new projects
-└── scripts/
-    └── install.sh                     # One-time setup: symlinks .claude/* into ~/.claude/
+AGENTS.md                 # Instructions for this repo
+skills/                   # Portable Agent Skills (SKILL.md)
+prompts/                  # Invokable workflows (commit, handoff, goal, …)
+templates/
+  AGENTS.md               # Per-project starter (versioned)
+  changelog.yml           # Optional GitHub Action for new projects
+adapters/
+  cursor/                 # Notes (skills via ~/.agents)
+  codex/                  # Notes (~/.codex/skills install)
+  claude/                 # Legacy hooks (not installed)
+scripts/install.sh        # Symlink core + adapters into home dirs
+docs/audit/               # Migration audit
+docs/adr/                 # Architecture decisions
 ```
 
-> **Scratchpad**: `/handoff` writes session summaries to a shared private repo at
-> `../scratchpad/<project-name>/` (sibling to each project directory), keeping handoff
-> files synced across devices without polluting project history.
-> Set it up once: `mkdir -p ../scratchpad && cd ../scratchpad && git init && gh repo create scratchpad --private --source=.`
+## Design
 
-## Dependencies
+| Layer | Role |
+|---|---|
+| `AGENTS.md` | Always-on non-negotiables (~150 lines target) |
+| `skills/` | On-demand procedures (goal loop, TDD, PR gate, …) |
+| `prompts/` | Explicit workflows / slash-style commands |
+| `adapters/` | Path notes only — no duplicated policy |
 
-- [`git-cliff`](https://git-cliff.org) — changelog generation. See the [installation docs](https://git-cliff.org/docs/installation) for your OS.
+**Git control plane:** protected `main`; one goal → one short-lived branch (prefer worktree);
+free push on that branch; human confirms PR to `main`. No shared `develop` agent branch.
 
-## Setup (once)
+## Setup (once per machine)
 
 ```bash
 bash scripts/install.sh
 ```
 
-This symlinks `.claude/commands`, `.claude/settings.json`, and `.claude/skills` into `~/.claude/`,
-making commands, hooks, and skills available globally in every project.
+Installs:
 
-## Per-project setup
+- Skills → `~/.agents/skills/` (Cursor, Pi) and `~/.codex/skills/` (Codex)
+- Prompts → `~/.agents/prompts/` and `~/.cursor/commands/`
+- Templates + CHANGELOG → `~/.agents/`
 
-Open a project in Claude Code and run:
+Pulling this repo updates all machines that re-run or already symlink here.
 
-```
-/sync-claude-md
-```
+## Per-project
 
-If no `CLAUDE.md` exists yet, the skill will offer to initialize one from the template.
-If one already exists, it will merge any template updates while preserving project-specific content.
-
-## Versioning new projects
-
-When `/new-project` scaffolds a project, it sets up `git-cliff` for changelog generation by default:
-
-- Runs `git cliff --init` to create `cliff.toml`
-- If the project is on GitHub, copies `.github/workflows/changelog.yml` from the templates — `CHANGELOG.md` is regenerated automatically whenever a version tag is pushed
-
-**Release workflow:**
-```bash
-git cliff --unreleased        # preview what's going in
-git tag v1.2.0
-git push origin main v1.2.0  # CI generates CHANGELOG.md automatically
+```text
+# In the project (Cursor command / prompt)
+sync-agents-md
 ```
 
-Without CI, generate manually before tagging:
-```bash
-git cliff --tag v1.2.0 -o CHANGELOG.md
-git add CHANGELOG.md && git commit -m "chore: release v1.2.0"
-git tag v1.2.0 && git push origin main v1.2.0
-```
+Or copy `templates/AGENTS.md` to the project root as `AGENTS.md` and fill
+Project Identity + Quality Commands.
 
-For projects that publish artifacts (npm, pip, Docker), use `release-please` instead — see the versioning skill.
+## Goal workflow
 
-## Staying up-to-date
+For multi-step autonomous work, load the `goal` skill (or `prompts/goal.md`):
+
+1. Write a goal contract (objective, done-when, stop-when).
+2. Cut `goal/<slug>` from `origin/main` (worktree preferred).
+3. Plan → act → verify until done or blocked.
+4. Run quality gates; open a PR only after confirmation — never merge as the agent.
+
+## Scratchpad
+
+`handoff` writes to `../scratchpad/<project-name>/` (sibling of the project),
+kept in a private repo for cross-device session resume:
 
 ```bash
-cd ~/workspace/claude-dotfiles
-git pull
+mkdir -p ../scratchpad && cd ../scratchpad && git init && gh repo create scratchpad --private --source=.
 ```
 
-Because everything is symlinked, pulling here immediately updates all projects — no re-running the install script needed.
+## Dependencies
+
+- [`git-cliff`](https://git-cliff.org) — changelog generation for versioned projects.
+
+## Branch protection (recommended)
+
+On each GitHub repo: require PRs to `main`, dismiss stale reviews, require status checks.
+Agents must not push to `main`.
 
 ## Disclaimer
 
-Personal dotfiles shared as-is. No stability guarantees — structure and skills may change as my workflow evolves. Contributions and issues are welcome, but this is primarily built for my own use.
-
-## Acknowledgements
-
-Inspired by [*My experience with Claude Code 2.0 and how to get better at using coding agents*](https://sankalp.bearblog.dev/my-experience-with-claude-code-20-and-how-to-get-better-at-using-coding-agents/) by Sankalp Shubham (Dec 2025).
+Personal config shared as-is. Structure may change as workflows evolve.
